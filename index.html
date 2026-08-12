@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#141a15">
+<title>Súper Liga — Donde tú eres el DT</title>
+<meta name="description" content="Súper Liga, el juego de mesa chileno donde tú eres el DT. Arma tu plantel, negocia en el mercado, sube juveniles y juega el campeonato con dados. Venta oficial directa y reglamento completo.">
+<meta property="og:title" content="Súper Liga — Donde tú eres el DT">
+<meta property="og:description" content="El juego de mesa de fútbol donde tú eres el DT. Venta oficial directa.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://fabmarti15.github.io/superliga-dt/img/portada.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#141a15; --paper:#f2ede0; --paper-2:#e7e0cd;
+  --pitch:#2f4a2c; --pitch-lo:#162415; --chalk:#f7f4ea;
+  --gk:#f2b807; --def:#2f6fd0; --mid:#3aa85c; --fwd:#d1382c;
+  --rule:rgba(20,26,21,.18);
+  --display:"Big Shoulders Display",Impact,sans-serif;
+  --body:"Newsreader",Georgia,serif;
+  --pad:clamp(18px,5vw,40px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.45;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.2'/%3E%3C/svg%3E")}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{width:min(1120px,100% - var(--pad)*2);margin-inline:auto}
+h1,h2,h3,h4,.d{font-family:var(--display);font-weight:900;line-height:.88;letter-spacing:-.005em;text-transform:uppercase;margin:0}
+
+/* ============ STICKY BUY BAR (mobile) ============ */
+.buybar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--ink);color:var(--chalk);
+  padding:10px var(--pad) calc(10px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px;
+  border-top:2px solid var(--gk);transform:translateY(120%);transition:transform .35s cubic-bezier(.2,.8,.3,1)}
+.buybar.show{transform:none}
+.buybar .px{font-family:var(--display);font-weight:900;font-size:26px;line-height:1;white-space:nowrap}
+.buybar .px small{display:block;font-family:var(--body);font-weight:400;font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.65;margin-top:3px}
+.buybar a{margin-left:auto;background:var(--gk);color:#181300;text-decoration:none;font-family:var(--display);font-weight:900;
+  text-transform:uppercase;letter-spacing:.05em;font-size:19px;padding:.6em 1.05em;border-radius:2px;white-space:nowrap}
+@media(min-width:860px){.buybar{display:none}}
+
+/* ============ HERO ============ */
+.hero{position:relative;overflow:hidden;background:var(--pitch);color:var(--chalk);
+  padding:calc(26px + env(safe-area-inset-top)) 0 0;min-height:100svh;display:flex;flex-direction:column}
+.hero .pitch{position:absolute;inset:0;opacity:.42}
+.hero .pitch svg{width:100%;height:100%}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(130% 80% at 75% 0%,rgba(255,255,255,.14),transparent 58%),linear-gradient(180deg,transparent 45%,var(--pitch-lo))}
+.hero .wrap{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;justify-content:center;padding-block:clamp(18px,5vh,50px)}
+.kicker{font-family:var(--display);font-weight:700;letter-spacing:.3em;text-transform:uppercase;font-size:11px;opacity:.85;margin:0}
+.hero h1{font-size:clamp(58px,17.5vw,190px);margin:.12em 0 0}
+.hero h1 span{display:block}
+.hero h1 .l2{color:var(--gk);font-size:.36em;letter-spacing:.015em;margin-top:.16em;line-height:1}
+.hero-lead{font-size:clamp(16px,4.1vw,22px);max-width:40ch;margin:1rem 0 0;opacity:.95}
+.hero-card{display:none}
+.cta{display:flex;flex-direction:column;gap:10px;margin-top:1.7rem;max-width:420px}
+.btn{display:block;text-align:center;font-family:var(--display);font-weight:900;text-transform:uppercase;letter-spacing:.05em;
+  font-size:21px;padding:.72em 1.1em;text-decoration:none;border:2px solid var(--chalk);color:var(--chalk);border-radius:2px;
+  transition:transform .18s cubic-bezier(.2,.8,.3,1),background .2s,color .2s}
+.btn:active{transform:scale(.97)}
+.btn--solid{background:var(--gk);border-color:var(--gk);color:#181300}
+.scroll-hint{position:relative;z-index:2;text-align:center;padding-bottom:14px;font-family:var(--display);
+  font-weight:700;letter-spacing:.24em;font-size:11px;text-transform:uppercase;opacity:.7}
+.scroll-hint span{display:block;font-size:18px;animation:bob 1.9s ease-in-out infinite;margin-top:2px}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+@media(min-width:860px){
+  .hero .wrap{display:grid;grid-template-columns:1.3fr .7fr;gap:48px;align-items:center}
+  .hero-card{display:block;width:100%;max-width:280px;margin:0 0 0 auto;transform:rotate(3.5deg);border:5px solid var(--chalk);box-shadow:0 20px 44px rgba(0,0,0,.45)}
+  .cta{flex-direction:row}
+  .btn{flex:1}
+}
+
+.ticker{position:relative;z-index:2;border-top:2px solid rgba(247,244,234,.3);border-bottom:2px solid rgba(247,244,234,.3);background:var(--pitch-lo);overflow:hidden}
+.ticker ul{display:flex;gap:2.4rem;list-style:none;margin:0;padding:.5rem 0;white-space:nowrap;
+  font-family:var(--display);font-weight:700;letter-spacing:.2em;text-transform:uppercase;font-size:13px;color:var(--chalk);
+  animation:slide 30s linear infinite;width:max-content}
+.ticker li::before{content:"◆";color:var(--gk);margin-right:.8rem;font-size:.7em;vertical-align:.15em}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* ============ SECTIONS ============ */
+section{padding:clamp(52px,11vw,110px) 0;position:relative}
+.sec-head{display:flex;align-items:baseline;gap:.8rem;margin-bottom:1.8rem;border-bottom:3px solid currentColor;padding-bottom:.45rem;flex-wrap:wrap}
+.sec-num{font-family:var(--display);font-weight:900;font-size:clamp(26px,7vw,50px);color:var(--fwd)}
+.sec-head h2{font-size:clamp(32px,9vw,68px)}
+.sec-head .tag{margin-left:auto;font-family:var(--display);font-weight:700;letter-spacing:.22em;font-size:11px;text-transform:uppercase;opacity:.55}
+.lead{font-size:clamp(20px,5.4vw,28px);line-height:1.32;font-weight:300;max-width:26ch}
+blockquote{margin:0;font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(32px,9.4vw,68px);line-height:.94}
+blockquote em{font-style:normal;color:var(--fwd)}
+
+/* ============ STORY ============ */
+.story-sec{background:var(--ink);color:var(--chalk);padding-top:clamp(40px,9vw,86px);padding-bottom:clamp(84px,16vw,90px)}
+.story-sec .sec-head{border-color:rgba(247,244,234,.35)}
+.story-sec .sec-num{color:var(--gk)}
+.story{position:relative;max-width:520px;margin:0 auto;
+  border:2px solid rgba(247,244,234,.3);border-radius:14px;overflow:hidden;background:var(--pitch-lo);
+  box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.bars{position:absolute;top:0;left:0;right:0;z-index:6;display:flex;gap:4px;padding:10px 10px 0}
+.bars i{flex:1;height:3px;background:rgba(247,244,234,.28);border-radius:3px;overflow:hidden}
+.bars i b{display:block;height:100%;width:0;background:var(--gk);border-radius:3px}
+.bars i.done b{width:100%}
+.bars i.now b{width:100%;transition:width 6s linear}
+.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;
+  height:min(72svh,600px);min-height:470px}
+.track::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:center;scroll-snap-stop:always;position:relative;
+  display:flex;flex-direction:column;justify-content:flex-end;padding:24px 20px 26px;overflow:hidden}
+.slide .bg{position:absolute;inset:0;z-index:0}
+.slide .art{position:absolute;top:6%;bottom:53%;left:16%;right:16%;z-index:1;
+  display:flex;align-items:center;justify-content:center}
+.slide .art img{max-height:100%;max-width:100%;width:auto;object-fit:contain;
+  border:4px solid var(--chalk);box-shadow:0 16px 34px rgba(0,0,0,.5)}
+.slide .scrim{position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(180deg,rgba(8,14,8,.5) 0%,rgba(8,14,8,0) 22%,rgba(8,14,8,.6) 42%,rgba(8,14,8,.96) 56%,rgba(8,14,8,.99) 100%)}
+.slide .body{position:relative;z-index:3}
+.step-n{font-family:var(--display);font-weight:900;font-size:44px;line-height:.8;color:var(--gk);opacity:.9}
+.slide h3{font-size:clamp(28px,8vw,40px);margin:.3em 0 .42em;text-wrap:balance}
+.slide p{margin:0;font-size:clamp(15px,4.1vw,17px);line-height:1.5;opacity:.94;max-width:34ch}
+.slide .chip{display:inline-block;margin-top:.9rem;font-family:var(--display);font-weight:800;text-transform:uppercase;
+  letter-spacing:.08em;font-size:14px;border:2px solid var(--gk);color:var(--gk);padding:.28em .7em;border-radius:2px}
+.nav{position:absolute;inset:0;z-index:5;display:flex}
+.nav button{flex:1;background:none;border:0;cursor:pointer;color:transparent;font-size:0}
+.nav button:last-child{flex:1.6}
+.arrows{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:16px}
+.arrows button{width:46px;height:46px;border-radius:50%;border:2px solid rgba(247,244,234,.45);background:none;color:var(--chalk);
+  font-size:19px;cursor:pointer;display:grid;place-items:center;transition:background .2s,transform .15s}
+.arrows button:active{transform:scale(.92)}
+.arrows .count{font-family:var(--display);font-weight:800;letter-spacing:.14em;font-size:14px;opacity:.7;min-width:56px;text-align:center}
+.swipe-note{text-align:center;margin:.9rem 0 0;font-size:13px;letter-spacing:.18em;text-transform:uppercase;opacity:.5;font-family:var(--display);font-weight:700}
+
+/* dice slide visual */
+.dicefaces{display:flex;gap:10px;justify-content:center;align-items:center;height:100%}
+.df{background:var(--chalk);color:var(--ink);border-radius:12px;width:clamp(56px,17vw,74px);aspect-ratio:1;
+  display:grid;place-items:center;font-family:var(--display);font-weight:900;font-size:clamp(24px,7vw,32px);
+  box-shadow:0 12px 26px rgba(0,0,0,.45)}
+.df.y{background:var(--gk)} .df.r{background:var(--fwd);color:var(--chalk)}
+.pitchmini{width:100%;max-width:230px}
+
+/* ============ CARDS / CONTENT ============ */
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(min-width:700px){.cards{grid-template-columns:repeat(4,1fr);gap:26px}}
+.pcard{text-align:center;margin:0}
+.pcard img{border:4px solid var(--ink);box-shadow:5px 5px 0 var(--pos)}
+.pcard .nm{font-family:var(--display);font-weight:800;font-size:19px;margin-top:.6rem;letter-spacing:.05em}
+.pcard .mm{font-size:13.5px;opacity:.7}
+.pcard:nth-child(1){--pos:var(--gk)}.pcard:nth-child(2){--pos:var(--def)}
+.pcard:nth-child(3){--pos:var(--mid)}.pcard:nth-child(4){--pos:var(--fwd)}
+.levels{display:flex;flex-wrap:wrap;gap:7px;margin-top:1.2rem}
+.lv{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:14px;letter-spacing:.04em;border:2px solid var(--ink);padding:.28em .6em}
+.lv b{color:var(--fwd)}
+.two{display:grid;gap:28px}
+@media(min-width:860px){.two{grid-template-columns:1fr 1fr;gap:56px;align-items:start}}
+.season{display:grid;gap:14px}
+@media(min-width:700px){.season{grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px}}
+.box{border:2px solid var(--ink);background:var(--paper);padding:20px}
+.box img{width:50px;margin-bottom:.7rem}
+.box h3{font-size:22px;margin-bottom:.45rem}
+.box p{font-size:15.5px;line-height:1.5;margin:0}
+
+
+/* escala de niveles */
+.scale{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
+.scale li{display:grid;grid-template-columns:auto 1fr;gap:.2rem .8rem;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding:.6rem 0}
+.scale b{font-family:var(--display);font-weight:900;font-size:30px;line-height:.9;color:var(--fwd);grid-row:span 2}
+.scale span{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:19px;letter-spacing:.04em}
+.scale i{font-style:normal;font-size:15.5px;opacity:.78;line-height:1.4}
+/* juveniles por color */
+.juv{list-style:none;margin:0;padding:0;display:grid;gap:.7rem;max-width:62ch;font-size:16px}
+.juv li{display:flex;gap:.7rem;align-items:flex-start;line-height:1.45}
+.juv .dot{flex:0 0 auto;width:16px;height:16px;border-radius:50%;border:2px solid var(--ink);margin-top:.35em}
+.juv .t{flex:1}
+.juv .dot.two{background:linear-gradient(90deg,var(--a) 0 50%,var(--b) 50% 100%)}
+.juv b{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.03em}
+
+
+/* destinos / entrenamientos */
+.special{border:2px solid var(--ink);padding:22px 20px;background:var(--paper);position:relative}
+.special--away{box-shadow:7px 7px 0 var(--fwd)}
+.special--home{box-shadow:7px 7px 0 var(--mid)}
+.special .tagline{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.16em;font-size:12px;opacity:.6}
+.special h3{font-size:clamp(28px,7.4vw,38px);margin:.15em 0 .5rem}
+.special p{margin:0 0 .8rem;font-size:16.5px}
+.special ul{margin:0 0 .9rem;padding-left:1.1rem;font-size:16px}
+.special li{margin-bottom:.4rem}
+.special b{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.03em}
+.special .eg{font-style:italic;opacity:.78;font-size:15.5px;border-left:3px solid var(--rule);padding-left:.8rem;margin-bottom:0}
+
+
+/* en la mesa */
+.mesa{display:grid;gap:14px;align-items:center}
+.mesa figure{margin:0}
+.mesa img{border:3px solid var(--chalk);background:var(--chalk);width:100%}
+.mesa figcaption{font-size:14.5px;opacity:.82;margin-top:.5rem;text-align:center}
+.mesa figcaption b{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--gk);font-size:16px}
+.mesa .vs{font-family:var(--display);font-weight:900;font-size:34px;text-align:center;color:var(--gk);opacity:.85}
+@media(min-width:760px){.mesa{grid-template-columns:1fr auto 1fr;gap:22px}.mesa .vs{font-size:50px}}
+.lines{margin-top:1.8rem;border-top:1px solid rgba(247,244,234,.28)}
+.ln{display:grid;grid-template-columns:auto 1fr auto;gap:.4rem .8rem;align-items:center;
+  border-bottom:1px solid rgba(247,244,234,.28);padding:.7rem 0}
+.ln .c{width:13px;height:13px;border-radius:50%}
+.ln b{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.05em;font-size:19px}
+.ln i{font-style:normal;font-family:var(--display);font-weight:900;font-size:22px;color:var(--gk);justify-self:end}
+.ln em{grid-column:2/-1;font-style:normal;font-size:15px;opacity:.72}
+
+/* ============ COMPRAR ============ */
+.buy{background:var(--gk);color:#181300}
+.buy .sec-head{border-color:#181300}.buy .sec-num{color:#181300}
+.price{font-family:var(--display);font-weight:900;font-size:clamp(58px,17vw,120px);line-height:.85;margin:.1em 0 .1em}
+.price small{display:block;font-family:var(--body);font-weight:400;font-size:13px;letter-spacing:.14em;text-transform:uppercase;opacity:.72;margin-top:.6rem}
+.official{display:inline-flex;align-items:center;gap:.5rem;background:#181300;color:var(--gk);
+  font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:13px;padding:.45em .8em;border-radius:2px}
+.buy .btn{border-color:#181300;color:#181300;font-size:clamp(19px,5vw,23px)}
+.buy .btn--solid{background:#181300;color:var(--gk);border-color:#181300}
+.incl{list-style:none;margin:1.6rem 0 0;padding:0;display:grid;gap:.5rem;font-size:16.5px}
+.incl li{display:flex;gap:.7rem;align-items:flex-start;border-bottom:1px solid rgba(24,19,0,.22);padding-bottom:.5rem}
+.incl li::before{content:"▸";font-weight:700}
+
+/* ============ REGLAMENTO ============ */
+.rules{border-top:2px solid var(--ink)}
+details{border-bottom:2px solid var(--ink)}
+summary{cursor:pointer;list-style:none;padding:18px 2px;display:flex;align-items:center;gap:.8rem;
+  font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(20px,5.6vw,30px)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";margin-left:auto;font-size:1.15em;color:var(--fwd);transition:transform .25s}
+details[open] summary::after{transform:rotate(45deg)}
+.rc{padding:0 2px 22px;max-width:70ch;font-size:16.5px}
+.rc h4{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:19px;margin:1.3rem 0 .35rem}
+.rc ul,.rc ol{padding-left:1.1rem}.rc li{margin-bottom:.32rem}
+.rc table{width:100%;border-collapse:collapse;margin:.9rem 0;font-size:15.5px}
+.rc th,.rc td{border:1px solid var(--rule);padding:.42rem .55rem;text-align:left}
+.rc th{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.04em;background:var(--paper-2)}
+.note{border-left:4px solid var(--gk);padding:.15rem 0 .15rem .9rem;font-style:italic;opacity:.9}
+
+footer{background:var(--pitch-lo);color:var(--chalk);padding:44px 0;font-size:15px}
+@media(max-width:859px){body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}}
+footer .cols{display:grid;gap:24px}
+@media(min-width:700px){footer .cols{grid-template-columns:repeat(3,1fr)}}
+footer .d{font-size:21px;color:var(--gk);margin-bottom:.4rem}
+footer p{margin:0;opacity:.82}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.8,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}.ticker ul{animation:none}.scroll-hint span{animation:none}}
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="pitch" aria-hidden="true">
+    <svg viewBox="0 0 600 900" preserveAspectRatio="xMidYMid slice">
+      <g fill="none" stroke="#f7f4ea" stroke-width="3" opacity=".5">
+        <rect x="30" y="30" width="540" height="840"/>
+        <line x1="30" y1="450" x2="570" y2="450"/>
+        <circle cx="300" cy="450" r="105"/><circle cx="300" cy="450" r="6" fill="#f7f4ea"/>
+        <rect x="150" y="30" width="300" height="150"/><rect x="150" y="720" width="300" height="150"/>
+        <rect x="228" y="30" width="144" height="58"/><rect x="228" y="812" width="144" height="58"/>
+      </g>
+    </svg>
+  </div>
+  <div class="wrap">
+    <div>
+      <p class="kicker">Juego de mesa · Hecho en Chile</p>
+      <h1><span>Súper</span><span>Liga</span><span class="l2">Donde tú eres el DT</span></h1>
+      <p class="hero-lead">Armas el plantel, negocias en el mercado, subes juveniles y sales a jugar con dados. Cuatro temporadas para convertir a tu equipo en el más popular del mundo.</p>
+      <div class="cta">
+        <a class="btn btn--solid" href="#comprar">Comprar el juego</a>
+        <a class="btn" href="#story">Ver cómo se juega</a>
+      </div>
+    </div>
+    <img class="hero-card" src="img/card-delantero.jpg" alt="Carta de delantero nivel 7 del juego Súper Liga">
+  </div>
+  <div class="scroll-hint" aria-hidden="true">Desliza<span>↓</span></div>
+  <div class="ticker" aria-hidden="true">
+    <ul>
+      <li>2 a 6 DT</li><li>110 cartas</li><li>Niveles 1 a 7</li><li>Mercado de pases</li><li>Juveniles</li><li>Draft</li><li>Supercopa</li><li>4 temporadas</li>
+      <li>2 a 6 DT</li><li>110 cartas</li><li>Niveles 1 a 7</li><li>Mercado de pases</li><li>Juveniles</li><li>Draft</li><li>Supercopa</li><li>4 temporadas</li>
+    </ul>
+  </div>
+</header>
+
+<!-- ================= STORY ================= -->
+<section class="story-sec" id="story">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Cómo se juega</h2><span class="tag">6 jugadas</span></div>
+
+    <div class="story" id="st">
+      <div class="bars" id="bars" aria-hidden="true"></div>
+
+      <div class="track" id="track" tabindex="0" role="region" aria-label="Cómo se juega, desliza para avanzar">
+
+        <article class="slide">
+          <div class="bg" style="background:linear-gradient(160deg,#3b5c37,#162415)"></div>
+          <div class="art"><img src="img/card-anatomia.jpg" alt="Carta de jugador con su nivel y posición"></div>
+          <div class="scrim"></div>
+          <div class="body">
+            <div class="step-n">01</div>
+            <h3>Construye tu equipo</h3>
+            <p>Los jugadores tienen nivel, del 1 al 7, y una posición: arquero, defensa, mediocampista o delantero. Un nivel 7 es un crack. Un nivel 1, un desastre. Con esas piezas armas tu plantel.</p>
+            <span class="chip">Del desastroso al crack</span>
+          </div>
+        </article>
+
+        <article class="slide">
+          <div class="bg" style="background:linear-gradient(160deg,#d1382c,#2a0d0a)"></div>
+          <div class="art"><img src="img/card-medio.jpg" alt="Jugador en remate en la subasta"></div>
+          <div class="scrim"></div>
+          <div class="body">
+            <div class="step-n">02</div>
+            <h3>Gánale la subasta</h3>
+            <p>Los refuerzos salen a remate y todos pujan por el mismo jugador. Pagas de más o lo pierdes. Ahí se arma el mejor equipo: no con suerte, con billetera y con timing.</p>
+            <span class="chip">Todos apostando por el mismo</span>
+          </div>
+        </article>
+
+        <article class="slide">
+          <div class="bg" style="background:linear-gradient(160deg,#3aa85c,#0f2417)"></div>
+          <div class="art"><img src="img/juv-4.jpg" alt="Juvenil con proyección de tres temporadas"></div>
+          <div class="scrim"></div>
+          <div class="body">
+            <div class="step-n">03</div>
+            <h3>Invierte en juveniles</h3>
+            <p>Cada juvenil trae impresa su proyección y sube de nivel temporada a temporada. Pagas hoy por el crack de la tercera. Es la jugada barata que puede ganarte el campeonato.</p>
+            <span class="chip">La cantera paga</span>
+          </div>
+        </article>
+
+        <article class="slide">
+          <div class="bg" style="background:linear-gradient(160deg,#2f6fd0,#101d33)"></div>
+          <div class="art">
+            <svg class="pitchmini" viewBox="0 0 220 300" fill="none">
+              <rect x="6" y="6" width="208" height="288" stroke="#f7f4ea" stroke-width="2" opacity=".45"/>
+              <line x1="6" y1="150" x2="214" y2="150" stroke="#f7f4ea" stroke-width="2" opacity=".45"/>
+              <circle cx="110" cy="150" r="30" stroke="#f7f4ea" stroke-width="2" opacity=".45"/>
+              <g opacity=".95">
+                <circle cx="58" cy="46" r="12" fill="#d1382c"/><circle cx="110" cy="40" r="12" fill="#d1382c"/>
+                <circle cx="162" cy="46" r="12" fill="#d1382c"/><circle cx="84" cy="86" r="12" fill="#d1382c"/>
+              </g>
+              <g opacity=".95">
+                <circle cx="40" cy="222" r="12" fill="#2f6fd0"/><circle cx="76" cy="236" r="12" fill="#2f6fd0"/>
+                <circle cx="144" cy="236" r="12" fill="#2f6fd0"/><circle cx="180" cy="222" r="12" fill="#2f6fd0"/>
+                <circle cx="110" cy="248" r="12" fill="#2f6fd0"/><circle cx="110" cy="278" r="12" fill="#f2b807"/>
+              </g>
+              <text x="110" y="160" text-anchor="middle" fill="#f7f4ea" font-family="Big Shoulders Display,Impact,sans-serif" font-size="26" font-weight="900" opacity=".85">VS</text>
+            </svg>
+          </div>
+          <div class="scrim"></div>
+          <div class="body">
+            <div class="step-n">04</div>
+            <h3>Un pulso de probabilidades</h3>
+            <p>Acá está el corazón del juego. Tu rival carga cuatro delanteros, tú respondes reforzando la defensa. Él lo ve y se va al mediocampo. Estás leyendo estadística sin darte cuenta: cada formación cambia las probabilidades de la otra.</p>
+            <span class="chip">La visita alinea primero</span>
+          </div>
+        </article>
+
+        <article class="slide">
+          <div class="bg" style="background:linear-gradient(160deg,#f2b807,#6b4f00)"></div>
+          <div class="art">
+            <div class="dicefaces"><div class="df r">4</div><div class="df">7</div><div class="df y">11</div></div>
+          </div>
+          <div class="scrim"></div>
+          <div class="body">
+            <div class="step-n">05</div>
+            <h3>El dado elige tu ataque</h3>
+            <p>Tiras un dado de 12. El número te dice con qué línea atacas: defensa, mediocampo o delantera. Si en esa línea tu equipo suma más nivel que el del rival, es gol. Si suma menos, te lo hacen a ti.</p>
+            <span class="chip">Liga a 3 goles · Copa a 5</span>
+          </div>
+        </article>
+
+        <article class="slide">
+          <div class="bg" style="background:linear-gradient(160deg,#b8860b,#241a00)"></div>
+          <div class="art"><img src="img/ic-premios.jpg" alt="Trofeo y premios" style="border:0;box-shadow:none;max-width:130px"></div>
+          <div class="scrim"></div>
+          <div class="body">
+            <div class="step-n">06</div>
+            <h3>Junta hinchas y sé campeón</h3>
+            <p>Cuatro temporadas, ida y vuelta, más la Supercopa. Cada título te suma hinchada, y el que termine con la hinchada más grande del mundo se lleva la Súper Liga.</p>
+            <span class="chip">4 temporadas · 1 campeón</span>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="nav" id="nav" aria-hidden="true"><button type="button" data-dir="-1">Anterior</button><button type="button" data-dir="1">Siguiente</button></div>
+    </div>
+
+    <div class="arrows">
+      <button type="button" id="prev" aria-label="Jugada anterior">←</button>
+      <span class="count" id="count">1 / 8</span>
+      <button type="button" id="next" aria-label="Jugada siguiente">→</button>
+    </div>
+    <p class="swipe-note">Desliza o toca los costados</p>
+  </div>
+</section>
+
+<!-- ================= OBJETIVO ================= -->
+<section id="objetivo">
+  <div class="wrap two reveal">
+    <blockquote>Gana el que construye <em>la hinchada más grande</em> del mundo.</blockquote>
+    <div>
+      <p class="lead" style="margin-bottom:1rem">Y para eso hay una sola forma: campeonatos.</p>
+      <p>Necesitas un plantel competitivo que gane la mayor cantidad de partidos posible y se convierta en el equipo más ganador de la historia de la Superliga. Tú decides a quién compras, a quién vendes, en qué juveniles inviertes y con qué línea sales a la cancha.</p>
+      <p>Es un juego de estrategia: la suerte reparte, pero el que administra mejor gana.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EN LA MESA ================= -->
+<section id="mesa" style="background:var(--ink);color:var(--chalk)">
+  <div class="wrap reveal">
+    <div class="sec-head" style="border-color:rgba(247,244,234,.35)"><span class="sec-num" style="color:var(--gk)">02</span><h2>Así se ve en la mesa</h2><span class="tag">Local vs. visita</span></div>
+    <p class="lead" style="margin-bottom:1.8rem">Once cartas por lado y tres números que deciden el partido.</p>
+
+    <div class="mesa">
+      <figure>
+        <img src="img/formacion-local.jpg" loading="lazy" alt="Equipo local alineado en la cancha con los totales de cada línea: delantera 8, mediocampo 12, defensa 27">
+        <figcaption><b>Local</b> · delantera 8 · medio 12 · defensa 27</figcaption>
+      </figure>
+      <div class="vs" aria-hidden="true">VS</div>
+      <figure>
+        <img src="img/formacion-visita.jpg" loading="lazy" alt="Equipo visitante alineado con los totales de cada línea: delantera 16, mediocampo 12, defensa 17">
+        <figcaption><b>Visita</b> · delantera 16 · medio 12 · defensa 17</figcaption>
+      </figure>
+    </div>
+
+    <div class="lines">
+      <div class="ln"><span class="c" style="background:var(--fwd)"></span><b>Delantera</b><i>8 vs 16</i><em>Gana la visita</em></div>
+      <div class="ln"><span class="c" style="background:var(--mid)"></span><b>Mediocampo</b><i>12 vs 12</i><em>Empate, no pasa nada</em></div>
+      <div class="ln"><span class="c" style="background:var(--def)"></span><b>Defensa</b><i>27 vs 17</i><em>Gana el local</em></div>
+    </div>
+    <p style="max-width:58ch;margin:1.6rem 0 0;opacity:.9">El dado dice por cuál de las tres líneas se juega la jugada. Con esos números en la mesa, el local reza por que salga defensa y la visita por que salga delantera. Eso es todo el juego.</p>
+  </div>
+</section>
+
+<!-- ================= CARTAS ================= -->
+<section style="background:var(--paper-2)">
+  <div class="wrap reveal">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Las cartas</h2><span class="tag">El color manda</span></div>
+    <div class="cards">
+      <figure class="pcard"><img src="img/card-arquero.jpg" loading="lazy" alt="Carta de arquero, fondo amarillo"><figcaption><div class="nm">Arquero</div></figcaption></figure>
+      <figure class="pcard"><img src="img/card-defensa.jpg" loading="lazy" alt="Carta de defensa, fondo azul"><figcaption><div class="nm">Defensa</div></figcaption></figure>
+      <figure class="pcard"><img src="img/card-medio.jpg" loading="lazy" alt="Carta de mediocampista, fondo verde"><figcaption><div class="nm">Medio</div></figcaption></figure>
+      <figure class="pcard"><img src="img/card-delantero.jpg" loading="lazy" alt="Carta de delantero, fondo rojo"><figcaption><div class="nm">Delantero</div></figcaption></figure>
+    </div>
+    <p style="max-width:60ch;margin:0 0 1.2rem">El nivel es el número grande de la carta y es lo único que se suma cuando cae el dado. Mientras más nivel junta una línea, más probable es que gane la jugada.</p>
+    <ol class="scale">
+      <li><b>1</b><span>Desastroso</span><i>Relleno. Cumple para no perder por walk-over.</i></li>
+      <li><b>2</b><span>Amateur</span><i>Tapa un hueco, no gana un partido.</i></li>
+      <li><b>3</b><span>Discreto</span><i>Titular de arranque, nada más.</i></li>
+      <li><b>4</b><span>Bueno</span><i>Empieza a inclinar una línea a tu favor.</i></li>
+      <li><b>5</b><span>Notable</span><i>El que peleas en la subasta.</i></li>
+      <li><b>6</b><span>Estrella</span><i>Gana una línea casi solo.</i></li>
+      <li><b>7</b><span>Crack</span><i>Capitán. Uno por posición, no te lo quita el draft y no puedes jugar con dos: el segundo va a la banca.</i></li>
+    </ol>
+
+    <h3 style="font-size:clamp(24px,6.4vw,34px);margin:2.4rem 0 .6rem">Los juveniles</h3>
+    <p style="max-width:60ch;margin:0 0 1.1rem">Traen impresa su proyección y suben un nivel en cada temporada: el que compras en 2 termina en 4. Y el color de la carta dice dónde pueden jugar.</p>
+    <ul class="juv">
+      <li><span class="dot" style="background:#7ec9e8"></span><span class="t"><b>Celeste:</b> juega en todas las posiciones.</span></li>
+      <li><span class="dot two" style="--a:#f2b807;--b:#d1382c"></span><span class="t"><b>Dos colores:</b> juega en esas dos posiciones.</span></li>
+    </ul>
+
+    <div class="cards" style="margin-top:2rem">
+      <figure class="pcard"><img src="img/juv-1.jpg" loading="lazy" alt="Juvenil proyección 1-2-3"></figure>
+      <figure class="pcard"><img src="img/juv-2.jpg" loading="lazy" alt="Juvenil proyección 2-3-4"></figure>
+      <figure class="pcard"><img src="img/juv-3.jpg" loading="lazy" alt="Juvenil proyección 3-4-5"></figure>
+      <figure class="pcard"><img src="img/juv-4.jpg" loading="lazy" alt="Juvenil proyección 4-5-6"></figure>
+    </div>
+    <p style="margin-top:.9rem;opacity:.75;font-size:15.5px">Los juveniles y su proyección a tres temporadas.</p>
+  </div>
+</section>
+
+<!-- ================= DESTINOS ================= -->
+<section id="cartas-especiales">
+  <div class="wrap reveal">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Destinos y entrenamientos</h2><span class="tag">La sal del partido</span></div>
+    <p class="lead" style="margin-bottom:1.8rem">Antes de cada partido sacas una carta. Cuál, depende de dónde juegues.</p>
+    <div class="two">
+      <div class="special special--away">
+        <div class="tagline">Juegas de visita</div>
+        <h3>Destinos</h3>
+        <p>Lo que te pasa en la carretera, para bien o para mal. Vienen de dos tipos:</p>
+        <ul>
+          <li><b>Instantáneos:</b> se aplican en el momento en que sale la carta, te guste o no.</li>
+          <li><b>Secretos:</b> te los guardas y los usas cuando más convenga. Tu rival no sabe que lo tienes.</li>
+        </ul>
+        <p class="eg">Del tipo: te bajan un jugador de la formación, te cambian el resultado de una jugada, o te salvan un gol en contra.</p>
+      </div>
+      <div class="special special--home">
+        <div class="tagline">Juegas de local</div>
+        <h3>Entrenamientos</h3>
+        <p>La ventaja de jugar en casa: preparaste la semana. También vienen de dos tipos:</p>
+        <ul>
+          <li><b>De un dado:</b> potencian una sola de tus oportunidades de ataque.</li>
+          <li><b>De todo el partido:</b> duran los tres dados y los usas en la jugada que quieras.</li>
+        </ul>
+        <p class="eg">Del tipo: subir el nivel de una línea, repetir un dado, o forzar por dónde ataca el rival.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TEMPORADA ================= -->
+<section>
+  <div class="wrap reveal">
+    <div class="sec-head"><span class="sec-num">05</span><h2>El casillero de vacaciones</h2><span class="tag">Fin de temporada</span></div>
+    <div class="season">
+      <div class="box"><img src="img/ic-premios.jpg" loading="lazy" alt=""><h3>Premios</h3><p>Se reparten los hinchas según la posición en que terminó la liga.</p></div>
+      <div class="box"><img src="img/ic-draft.jpg" loading="lazy" alt=""><h3>Draft</h3><p>Los dados deciden qué jugadores se van. Elige primero el último de la liga y cierra el campeón.</p></div>
+      <div class="box"><img src="img/ic-ingresos.jpg" loading="lazy" alt=""><h3>Ingresos</h3><p>5.000 por cada gol. Más incentivo por posición: 40.000 al cuarto y 10.000 al campeón.</p></div>
+      <div class="box"><img src="img/ic-mercado.jpg" loading="lazy" alt=""><h3>Compra y venta</h3><p>Vendes al banco a mitad de precio, se rematan 7 jugadores nuevos y se invierte en juveniles.</p></div>
+      <div class="box"><img src="img/ic-supercopa.jpg" loading="lazy" alt=""><h3>Supercopa</h3><p>Al final de cada año. Todos participan, a 5 goles, y penales si hay empate.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPRAR ================= -->
+<section class="buy" id="comprar">
+  <div class="wrap reveal">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Consíguelo</h2><span class="tag">Envíos a todo Chile</span></div>
+    <div class="two">
+      <div>
+        <span class="official">★ Venta oficial directa</span>
+        <div class="price">$39.990<small>Consulta stock y despacho</small></div>
+        <p style="max-width:40ch;margin-top:0">Súper Liga se vende directamente conmigo. No hay distribuidores ni revendedores: si lo ves en otro lado, no es stock oficial y probablemente sea una caja usada.</p>
+        <div class="cta" style="margin-top:1.4rem">
+          <a class="btn btn--solid" href="https://wa.me/56990985324?text=Hola%2C%20quiero%20comprar%20el%20juego%20S%C3%BAper%20Liga" target="_blank" rel="noopener">Comprar por WhatsApp</a>
+          <a class="btn" href="mailto:fabianmartinezn@gmail.com?subject=Quiero%20comprar%20S%C3%BAper%20Liga">Escribir un correo</a>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:clamp(24px,6.4vw,34px);margin-bottom:.7rem">Qué trae la caja</h3>
+        <ul class="incl">
+          <li>110 cartas de jugador, de nivel 1 a 7, con los capitanes</li>
+          <li>Cartas de juveniles con proyección a tres temporadas</li>
+          <li>Mazos de destinos y de entrenamientos</li>
+          <li>Tablero, dados y billetes de dólares liga</li>
+          <li>Instructivo completo</li>
+        </ul>
+        <p style="margin-top:1.4rem;font-size:15.5px;opacity:.8">2 a 6 jugadores · Desde 10 años · Una temporada dura cerca de una hora.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REGLAMENTO ================= -->
+<section id="reglamento">
+  <div class="wrap reveal">
+    <div class="sec-head"><span class="sec-num">07</span><h2>Reglamento</h2><span class="tag">Completo y gratis</span></div>
+    <p class="lead" style="margin-bottom:1.8rem">¿Perdiste la hoja de la caja? Está entera acá.</p>
+
+    <div class="rules">
+
+      <details>
+        <summary>Preparación</summary>
+        <div class="rc">
+          <h4>1 · El banco</h4>
+          <p>Hay que establecer quién será el banco. Tendrá la responsabilidad de repartir el dinero además de entregar los goles y premios cuando corresponda.</p>
+          <h4>2 · Dinero inicial</h4>
+          <p>Se reparten 120.000 dólares liga para cada equipo, para invertir en juveniles o refuerzos.</p>
+          <h4>3 · Plantel inicial</h4>
+          <p>De forma aleatoria y en este orden: 1 jugador de nivel 5 <em>(Notable)</em>, 3 de nivel 4 <em>(Bueno)</em> y 3 de nivel 3 <em>(Discreto)</em>. Si recibiste más de un arquero, cambias uno por otro jugador del mismo nivel.</p>
+          <p>Las cuatro posiciones están definidas por el color de fondo: arquero amarillo, defensa azul, mediocampista verde, delantero rojo.</p>
+          <h4>4 · Completar los planteles</h4>
+          <p>Los jugadores de nivel 2 <em>(Amateur)</em> quedan sobre la mesa a la vista de todos. Cada equipo escoge de a uno en el sentido del reloj —parte quien obtuvo el mayor dado— y luego a la inversa, hasta completar 3 por equipo. Se repite con los de nivel 1 <em>(Desastroso)</em>, hasta seleccionar cuatro.</p>
+          <table>
+            <tr><th>Posición</th><th>Mínimo</th><th>Máximo</th></tr>
+            <tr><td>Arquero</td><td>1</td><td>1</td></tr>
+            <tr><td>Defensa</td><td>3</td><td>5</td></tr>
+            <tr><td>Mediocampista</td><td>3</td><td>5</td></tr>
+            <tr><td>Delantero</td><td>2</td><td>4</td></tr>
+          </table>
+          <p class="note">Los planteles pueden mantenerse en incógnita hasta el primer partido del campeonato.</p>
+          <h4>5, 6 y 7 · Mazo, tablero y mercado</h4>
+          <p>Se juntan los jugadores restantes para formar el mazo del mercado y se arma el tablero con todos los mazos revueltos: jugadores, juveniles, entrenamiento y destinos. Luego salen 7 jugadores a la venta, que se rematan al mejor postor. Si nadie ofrece, el jugador vuelve al mazo. El valor inicial es de 10.000 dólares liga por cada nivel.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Jugadores, capitanes y juveniles</summary>
+        <div class="rc">
+          <h4>Normales</h4>
+          <p>Niveles del 1 al 6, con una posición específica definida por su color.</p>
+          <h4>Capitanes</h4>
+          <p>Son los de nivel 7. Solo hay uno por posición, son el alma de los equipos y no se ven afectados por los draft. No pueden jugar dos Crack en un mismo equipo: si tienes dos, uno permanece en la banca.</p>
+          <h4>Juveniles</h4>
+          <p>Juegan varias posiciones y mejoran con el paso de las temporadas, subiendo un nivel por temporada. Todos evolucionan aunque no hayan estado en juego. Los que se sacan en la segunda temporada también suben un nivel, al igual que los canteranos que jugaron.</p>
+          <table>
+            <tr><th>Temporada</th><th>Costo del juvenil</th></tr>
+            <tr><td>Primera</td><td>50.000 dólares liga</td></tr>
+            <tr><td>Segunda y tercera</td><td>60.000 dólares liga</td></tr>
+            <tr><td>Cuarta</td><td>70.000 dólares liga</td></tr>
+          </table>
+        </div>
+      </details>
+
+      <details>
+        <summary>Partidos: alineación, dados y goles</summary>
+        <div class="rc">
+          <h4>Alinear</h4>
+          <p>Cada equipo alinea respetando los mínimos y máximos. La visita alinea primero y luego el local.</p>
+          <p class="note">Si eres visita, identifica la línea más fuerte del rival sumando el nivel de sus jugadores por posición (en la defensa, cuenta también al arquero). Después intenta parar la mayor cantidad de jugadores en la línea que puedes ganar.</p>
+          <h4>El dado</h4>
+          <table>
+            <tr><th>Dado</th><th>Resultado</th></tr>
+            <tr><td>1</td><td>Gol de visita</td></tr>
+            <tr><td>2 al 11</td><td>Se cuenta de arquero a delantero y de izquierda a derecha hasta el jugador que realizó la maniobra. Se compara el nivel de su línea con la del rival. El equipo con mejor nivel anota.</td></tr>
+            <tr><td>12</td><td>Gol del equipo con mejor delantera</td></tr>
+          </table>
+          <p>Si hay empate en la suma de niveles, se pierde la oportunidad de gol.</p>
+          <h4>Formato</h4>
+          <p>Los partidos de liga se definen al mejor de 3 dados en el orden <strong>Visita · Local · Visita</strong> y se juegan a tres goles. Ganar da 3 puntos; empatar, 1. Los partidos de Supercopa se definen al mejor de 5 dados: Visita · Local · Visita · Local · Visita.</p>
+          <h4>Casos especiales</h4>
+          <ul>
+            <li>Si tienes menos de 11 jugadores por expulsión, el expulsado queda con la tarjeta dada vuelta. Si el dado lo indica, tu equipo recibe gol en contra aunque la línea sea más fuerte.</li>
+            <li>Con 10 jugadores, el número 11 es gol en contra. Con 9, los números 10 y 11 son gol en contra. Con menos de 9 pierdes por walk-over.</li>
+          </ul>
+          <h4>Formaciones permitidas</h4>
+          <table>
+            <tr><th>Defensas</th><th>Medios</th><th>Delanteros</th></tr>
+            <tr><td>5</td><td>3</td><td>2</td></tr><tr><td>4</td><td>4</td><td>2</td></tr>
+            <tr><td>4</td><td>3</td><td>3</td></tr><tr><td>3</td><td>5</td><td>2</td></tr>
+            <tr><td>3</td><td>4</td><td>3</td></tr><tr><td>3</td><td>3</td><td>4</td></tr>
+          </table>
+        </div>
+      </details>
+
+      <details>
+        <summary>Destinos, entrenamientos y walk-over</summary>
+        <div class="rc">
+          <h4>Destinos</h4>
+          <p>Se sacan cada vez que juegas de visitante. <strong>Instantáneos:</strong> se usan en el momento. <strong>Secretos:</strong> se guardan para cuando quieras.</p>
+          <h4>Entrenamientos</h4>
+          <p>Se sacan cada vez que juegas de local. <strong>Un dado:</strong> afectan solo a una oportunidad de ataque. <strong>Todo el partido:</strong> duran el partido completo.</p>
+          <h4>Walk-over</h4>
+          <p>Un equipo con menos de 9 jugadores, o que no cumpla el mínimo por puesto (1 arquero, 3 defensas, 3 medios, 2 delanteros), pierde 3-0. Los jugadores de cualquier posición pueden tapar un hueco para evitarlo, pero juegan nivel 0 en esa posición.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Vacaciones: premios, draft, ingresos y mercado</summary>
+        <div class="rc">
+          <h4>Premios</h4>
+          <p>Se reparten los hinchas según la posición en que se terminó la liga.</p>
+          <h4>Draft</h4>
+          <ul>
+            <li>Cada equipo alinea sus mejores jugadores por nivel, independiente de su formación favorita, respetando mínimos y máximos.</li>
+            <li>Cada equipo lanza los dados para ver qué jugadores se van. Si sale 12, se repite; lo mismo si el que debe irse es un nivel 7 o si se repite un número ya salido.</li>
+            <li>Luego elige el último de la liga, después el tercero, el segundo y por último el campeón. Se repite el mismo orden para completar dos jugadores.</li>
+          </ul>
+          <h4>Ingresos</h4>
+          <ul>
+            <li><strong>Goles:</strong> 5.000 dólares liga cada uno. Las tarjetas de gol se devuelven al banco.</li>
+            <li><strong>Incentivos:</strong> 40.000 al cuarto lugar, 30.000 al tercero, 20.000 al segundo y 10.000 al campeón.</li>
+          </ul>
+          <h4>Venta y compra</h4>
+          <ul>
+            <li><strong>Venta al banco:</strong> mitad de precio, 10.000 por nivel. Los juveniles siempre a 25.000.</li>
+            <li><strong>Mercado:</strong> salen 7 jugadores a remate, valor inicial 10.000 por nivel.</li>
+            <li><strong>Juveniles:</strong> 50.000 la primera temporada, 60.000 la segunda y tercera, 70.000 la cuarta.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Supercopa</summary>
+        <div class="rc">
+          <p>Al final de cada año, después de las vacaciones de verano. Todos los equipos participan.</p>
+          <ul>
+            <li>Se lanzan los dados para armar las parejas: los mayores se enfrentan entre sí y los menores hacen lo mismo. Quien sacó el número mayor en cada par es local.</li>
+            <li>Los partidos son a 5 goles: el local lanza dos dados y la visita tres. Parte la visita.</li>
+          </ul>
+          <h4>Penales</h4>
+          <p>Cada equipo escoge un jugador. La visita lanza el dado y suma el número con el nivel de su jugador; el local lanza y suma con el nivel de su arquero. Si el pateador supera al arquero, es gol; si iguala o queda por debajo, es atajada. Luego ejecuta el local, hasta que uno convierta y el otro falle.</p>
+          <h4>Definiciones</h4>
+          <p>Los ganadores definen el campeón y los perdedores el tercer y cuarto lugar, ambos a 5 goles. Se lanza el dado de nuevo para ver quién es local. Conviene jugar el partido por el tercer lugar: los goles se canjean por dinero. Al final se entregan los premios al primer y segundo lugar.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>El año completo, paso a paso</summary>
+        <div class="rc">
+          <ol>
+            <li>Comienza el campeonato. El banco reparte 30.000 dólares liga por derechos de televisión a cada equipo.</li>
+            <li>Antes de cada partido, el local saca entrenamiento y la visita saca destino.</li>
+            <li>Los equipos revelan todo su plantel: titulares y banca.</li>
+            <li>Se juegan los partidos de la Liga.</li>
+            <li>Termina la temporada <em>(vacaciones de invierno)</em>: premios, draft, ingresos, compra y venta.</li>
+            <li>Comienza la segunda temporada con los mismos pasos.</li>
+            <li>Al finalizar la segunda temporada se juega la Supercopa.</li>
+            <li>Se repite para la tercera y la cuarta.</li>
+          </ol>
+          <p><strong>El equipo que consiga más campeonatos obtendrá mayor hinchada y será el ganador de esta Súper Liga.</strong></p>
+        </div>
+      </details>
+
+    </div>
+
+    <p style="margin-top:2rem"><a class="btn" style="border-color:var(--ink);color:var(--ink);max-width:420px" href="reglamento-superliga.pdf" download>Descargar el instructivo (PDF)</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap cols">
+    <div><div class="d">Súper Liga</div><p>Donde tú eres el DT.<br>Juego de mesa de fútbol, hecho en Chile.</p></div>
+    <div><div class="d">Comprar</div><p><a href="https://wa.me/56990985324">WhatsApp +56 9 9098 5324</a><br><a href="mailto:fabianmartinezn@gmail.com">fabianmartinezn@gmail.com</a><br>Venta oficial directa, sin intermediarios.</p></div>
+    <div><div class="d">Créditos</div><p>Desarrollado por OGR Ltda.<br>Ilustraciones y gráficas: Sebastián Alfaro.<br>Diseño de caja: Pedro Chavarri.</p></div>
+  </div>
+</footer>
+
+<div class="buybar" id="buybar">
+  <div class="px">$39.990<small>Venta oficial</small></div>
+  <a href="https://wa.me/56990985324?text=Hola%2C%20quiero%20comprar%20el%20juego%20S%C3%BAper%20Liga" target="_blank" rel="noopener">Comprar</a>
+</div>
+
+<script>
+/* ---- reveal ---- */
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.06});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---- sticky buy bar ---- */
+const bar=document.getElementById('buybar'),hero=document.querySelector('.hero'),buySec=document.getElementById('comprar');
+new IntersectionObserver(e=>{bar.classList.toggle('show',!e[0].isIntersecting)},{threshold:.15}).observe(hero);
+new IntersectionObserver(e=>{if(e[0].isIntersecting)bar.classList.remove('show')},{threshold:.25}).observe(buySec);
+
+/* ---- story ---- */
+const track=document.getElementById('track'),slides=[...track.children],bars=document.getElementById('bars'),count=document.getElementById('count');
+slides.forEach(()=>bars.insertAdjacentHTML('beforeend','<i><b></b></i>'));
+const segs=[...bars.children];
+let cur=0,timer=null,auto=true;
+const DUR=6200;
+
+function paint(i){
+  segs.forEach((s,k)=>{s.classList.toggle('done',k<i);s.classList.remove('now');
+    if(k>i){s.firstElementChild.style.transition='none';s.firstElementChild.style.width='0'}});
+  const b=segs[i].firstElementChild;
+  b.style.transition='none';b.style.width='0';
+  void b.offsetWidth;
+  if(auto){segs[i].classList.add('now')}else{b.style.transition='none';b.style.width='0'}
+  count.textContent=(i+1)+' / '+slides.length;
+}
+function go(i,smooth=true){
+  i=Math.max(0,Math.min(slides.length-1,i));
+  track.scrollTo({left:track.clientWidth*i,behavior:smooth?'smooth':'auto'});
+}
+function schedule(){clearTimeout(timer);if(!auto)return;
+  timer=setTimeout(()=>{cur<slides.length-1?go(cur+1):(auto=false,paint(cur));},DUR);}
+function stopAuto(){auto=false;clearTimeout(timer);segs.forEach(s=>s.classList.remove('now'));
+  segs.forEach((s,k)=>{s.classList.toggle('done',k<=cur);s.firstElementChild.style.transition='none';s.firstElementChild.style.width=k<=cur?'100%':'0'});
+  count.textContent=(cur+1)+' / '+slides.length;}
+
+let t;
+track.addEventListener('scroll',()=>{clearTimeout(t);t=setTimeout(()=>{
+  const i=Math.round(track.scrollLeft/track.clientWidth);
+  if(i!==cur){cur=i;auto?paint(cur):stopAuto();schedule();}
+},90)},{passive:true});
+
+document.querySelectorAll('#nav button').forEach(b=>b.addEventListener('click',e=>{
+  stopAuto();go(cur+Number(e.currentTarget.dataset.dir));}));
+document.getElementById('prev').addEventListener('click',()=>{stopAuto();go(cur-1)});
+document.getElementById('next').addEventListener('click',()=>{stopAuto();go(cur+1)});
+track.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'){stopAuto();go(cur+1)}
+  if(e.key==='ArrowLeft'){stopAuto();go(cur-1)}});
+['touchstart','pointerdown','wheel'].forEach(ev=>track.addEventListener(ev,stopAuto,{passive:true,once:true}));
+
+/* start when the story enters the screen */
+new IntersectionObserver((e,ob)=>{if(e[0].isIntersecting){paint(0);schedule();ob.disconnect()}},{threshold:.5}).observe(document.getElementById('st'));
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){auto=false;stopAuto()}
+</script>
+</body>
+</html>
