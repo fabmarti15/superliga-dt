@@ -1,0 +1,23 @@
+# Cloudflare Pages aplica estas cabeceras a archivos estaticos.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/robots.txt
+  Content-Type: text/plain; charset=utf-8
+
+/sitemap.xml
+  Content-Type: application/xml; charset=utf-8
+
+/404
+  X-Robots-Tag: noindex
+
+/404.html
+  X-Robots-Tag: noindex
+
+# Las copias tecnicas no compiten con el dominio publico.
+https://superligadt.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.superligadt.pages.dev/*
+  X-Robots-Tag: noindex

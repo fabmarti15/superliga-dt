@@ -1,0 +1,7 @@
+# Rutas de la web historica hacia el contenido vigente.
+# Los dominios www y pages.dev se consolidan con Bulk Redirects en Cloudflare.
+# _redirects no admite reglas por dominio.
+/superliga.html / 301
+/comosejuega.html /#story 301
+/reglamento.html /#reglamento 301
+/galeria.html /#comprar 301

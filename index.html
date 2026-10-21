@@ -4,12 +4,55 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#141a15">
-<title>Súper Liga — Donde tú eres el DT</title>
-<meta name="description" content="Súper Liga, el juego de mesa chileno donde tú eres el DT. Arma tu plantel, negocia en el mercado, sube juveniles y juega el campeonato con dados. Venta oficial directa y reglamento completo.">
-<meta property="og:title" content="Súper Liga — Donde tú eres el DT">
-<meta property="og:description" content="El juego de mesa de fútbol donde tú eres el DT. Venta oficial directa.">
+<title>Súper Liga · Juego de mesa de fútbol creado en Chile</title>
+<meta name="description" content="Conoce Súper Liga, el juego de mesa de fútbol creado en Chile donde tú eres el DT. Reglas, fotos y aviso de disponibilidad de la posible reimpresión.">
+<link rel="canonical" href="https://superligadt.com/">
+<meta property="og:title" content="Súper Liga · Juego de mesa de fútbol">
+<meta property="og:description" content="Arma tu equipo, ficha cracks y conquista el campeonato. Aquí, tú eres el DT.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://fabmarti15.github.io/superliga-dt/img/portada.jpg">
+<meta property="og:url" content="https://superligadt.com/">
+<meta property="og:site_name" content="Súper Liga">
+<meta property="og:locale" content="es_CL">
+<meta property="og:image" content="https://superligadt.com/img/superliga-juego-mesa-futbol.jpg">
+<meta property="og:image:secure_url" content="https://superligadt.com/img/superliga-juego-mesa-futbol.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1576">
+<meta property="og:image:height" content="1366">
+<meta property="og:image:alt" content="Caja de Súper Liga, juego de mesa de fútbol, con tablero, cartas, fichas y dado.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Súper Liga · Juego de mesa de fútbol">
+<meta name="twitter:description" content="Arma tu equipo, ficha cracks y conquista el campeonato. Aquí, tú eres el DT.">
+<meta name="twitter:image" content="https://superligadt.com/img/superliga-juego-mesa-futbol.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "@id": "https://superligadt.com/#juego",
+      "name": "Súper Liga — Donde tú eres el DT",
+      "url": "https://superligadt.com/",
+      "image": "https://superligadt.com/img/superliga-juego-mesa-futbol.jpg",
+      "description": "Juego de mesa de fútbol creado en Chile. Armas un plantel, participas en el mercado de jugadores, desarrollas juveniles y compites durante cuatro temporadas. La reimpresión está en evaluación.",
+      "brand": {"@type": "Brand", "name": "Súper Liga"}
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://superligadt.com/#organizacion",
+      "name": "OGR Ltda.",
+      "url": "https://superligadt.com/"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://superligadt.com/#sitio",
+      "name": "Súper Liga",
+      "url": "https://superligadt.com/",
+      "inLanguage": "es-CL",
+      "publisher": {"@id": "https://superligadt.com/#organizacion"}
+    }
+  ]
+}
+</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -220,6 +263,12 @@ blockquote em{font-style:normal;color:var(--fwd)}
 .incl{list-style:none;margin:1.6rem 0 0;padding:0;display:grid;gap:.5rem;font-size:16.5px}
 .incl li{display:flex;gap:.7rem;align-items:flex-start;border-bottom:1px solid rgba(24,19,0,.22);padding-bottom:.5rem}
 .incl li::before{content:"▸";font-weight:700}
+.product-photo{margin:0 0 1.8rem}
+.product-photo img{width:100%;height:auto;border:3px solid #181300}
+.product-photo figcaption{font-size:14px;line-height:1.45;margin-top:.6rem}
+.availability-note{font-size:15px;line-height:1.5;max-width:46ch}
+.hero-status{font-size:14px;line-height:1.4;max-width:43ch;margin:.9rem 0 0;opacity:.85}
+.related-link{font-size:16px;margin-top:1.5rem}
 
 /* ============ REGLAMENTO ============ */
 .rules{border-top:2px solid var(--ink)}
@@ -244,10 +293,13 @@ footer .cols{display:grid;gap:24px}
 footer .d{font-size:21px;color:var(--gk);margin-bottom:.4rem}
 footer p{margin:0;opacity:.82}
 
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.8,.3,1)}
-.reveal.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}.ticker ul{animation:none}.scroll-hint span{animation:none}}
+.reveal{opacity:1;transform:none}
+.reveal.in{animation:reveal-in .65s ease}
+@keyframes reveal-in{from{transform:translateY(10px)}to{transform:none}}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--def);outline-offset:5px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal.in,.ticker ul,.scroll-hint span{animation:none}.buybar,.btn,.bars i.now b{transition:none}}
 </style>
+<noscript><style>.nav,.arrows,.bars{display:none}.swipe-note{display:none}.track{display:block;height:auto;min-height:0;overflow:visible}.slide{min-height:520px}.slide+.slide{border-top:2px solid rgba(247,244,234,.3)}</style></noscript>
 </head>
 <body>
 
@@ -266,21 +318,22 @@ footer p{margin:0;opacity:.82}
   </div>
   <div class="wrap">
     <div>
-      <p class="kicker">Juego de mesa · Hecho en Chile</p>
+      <p class="kicker">Juego de mesa · Creado en Chile</p>
       <h1><span>Súper</span><span>Liga</span><span class="l2">Donde tú eres el DT</span></h1>
       <p class="hero-lead">Armas el plantel, negocias en el mercado, subes juveniles y sales a jugar con dados. Cuatro temporadas para convertir a tu equipo en el más popular del mundo.</p>
       <div class="cta">
-        <a class="btn btn--solid" href="#comprar">Comprar el juego</a>
+        <a class="btn btn--solid" href="#comprar">Avísame</a>
         <a class="btn" href="#story">Ver cómo se juega</a>
       </div>
+      <p class="hero-status">Reimpresión en evaluación. Precio, stock y despacho por confirmar.</p>
     </div>
     <img class="hero-card" src="img/card-delantero.jpg" alt="Carta de delantero nivel 7 del juego Súper Liga">
   </div>
   <div class="scroll-hint" aria-hidden="true">Desliza<span>↓</span></div>
   <div class="ticker" aria-hidden="true">
     <ul>
-      <li>2 a 6 DT</li><li>110 cartas</li><li>Niveles 1 a 7</li><li>Mercado de pases</li><li>Juveniles</li><li>Draft</li><li>Supercopa</li><li>4 temporadas</li>
-      <li>2 a 6 DT</li><li>110 cartas</li><li>Niveles 1 a 7</li><li>Mercado de pases</li><li>Juveniles</li><li>Draft</li><li>Supercopa</li><li>4 temporadas</li>
+      <li>Niveles 1 a 7</li><li>Mercado de pases</li><li>Juveniles</li><li>Draft</li><li>Supercopa</li><li>4 temporadas</li>
+      <li>Niveles 1 a 7</li><li>Mercado de pases</li><li>Juveniles</li><li>Draft</li><li>Supercopa</li><li>4 temporadas</li>
     </ul>
   </div>
 </header>
@@ -314,7 +367,7 @@ footer p{margin:0;opacity:.82}
           <div class="body">
             <div class="step-n">02</div>
             <h3>Gánale la subasta</h3>
-            <p>Los refuerzos salen a remate y todos pujan por el mismo jugador. Pagas de más o lo pierdes. Ahí se arma el mejor equipo: no con suerte, con billetera y con timing.</p>
+            <p>Los refuerzos salen a remate y todos pujan por el mismo jugador. Eliges cuánto ofrecer según tu plantel y el dinero disponible. Cada fichaje cambia las opciones de tu equipo.</p>
             <span class="chip">Todos apostando por el mismo</span>
           </div>
         </article>
@@ -326,7 +379,7 @@ footer p{margin:0;opacity:.82}
           <div class="body">
             <div class="step-n">03</div>
             <h3>Invierte en juveniles</h3>
-            <p>Cada juvenil trae impresa su proyección y sube de nivel temporada a temporada. Pagas hoy por el crack de la tercera. Es la jugada barata que puede ganarte el campeonato.</p>
+            <p>Cada juvenil trae impresa su proyección y mejora con el paso de las temporadas. También puede jugar en las posiciones indicadas por los colores de su carta. Eliges en quién invertir para reforzar tu plantel.</p>
             <span class="chip">La cantera paga</span>
           </div>
         </article>
@@ -354,7 +407,7 @@ footer p{margin:0;opacity:.82}
           <div class="body">
             <div class="step-n">04</div>
             <h3>Un pulso de probabilidades</h3>
-            <p>Acá está el corazón del juego. Tu rival carga cuatro delanteros, tú respondes reforzando la defensa. Él lo ve y se va al mediocampo. Estás leyendo estadística sin darte cuenta: cada formación cambia las probabilidades de la otra.</p>
+            <p>La visita alinea primero y después el local. Comparas el nivel de cada línea con el del rival y eliges tu formación. La cantidad de jugadores en cada posición cambia las probabilidades de que el dado la elija.</p>
             <span class="chip">La visita alinea primero</span>
           </div>
         </article>
@@ -368,8 +421,8 @@ footer p{margin:0;opacity:.82}
           <div class="body">
             <div class="step-n">05</div>
             <h3>El dado elige tu ataque</h3>
-            <p>Tiras un dado de 12. El número te dice con qué línea atacas: defensa, mediocampo o delantera. Si en esa línea tu equipo suma más nivel que el del rival, es gol. Si suma menos, te lo hacen a ti.</p>
-            <span class="chip">Liga a 3 goles · Copa a 5</span>
+            <p>Del 2 al 11, el dado elige la línea que se compara: el equipo con mayor nivel anota. El 1 es gol de visita; el 12, de la mejor delantera. Si los niveles empatan, se pierde la oportunidad.</p>
+            <span class="chip">3 lanzamientos en Liga · 5 en Copa</span>
           </div>
         </article>
 
@@ -392,7 +445,7 @@ footer p{margin:0;opacity:.82}
 
     <div class="arrows">
       <button type="button" id="prev" aria-label="Jugada anterior">←</button>
-      <span class="count" id="count">1 / 8</span>
+      <span class="count" id="count">1 / 6</span>
       <button type="button" id="next" aria-label="Jugada siguiente">→</button>
     </div>
     <p class="swipe-note">Desliza o toca los costados</p>
@@ -490,7 +543,6 @@ footer p{margin:0;opacity:.82}
           <li><b>Instantáneos:</b> se aplican en el momento en que sale la carta, te guste o no.</li>
           <li><b>Secretos:</b> te los guardas y los usas cuando más convenga. Tu rival no sabe que lo tienes.</li>
         </ul>
-        <p class="eg">Del tipo: te bajan un jugador de la formación, te cambian el resultado de una jugada, o te salvan un gol en contra.</p>
       </div>
       <div class="special special--home">
         <div class="tagline">Juegas de local</div>
@@ -498,9 +550,8 @@ footer p{margin:0;opacity:.82}
         <p>La ventaja de jugar en casa: preparaste la semana. También vienen de dos tipos:</p>
         <ul>
           <li><b>De un dado:</b> potencian una sola de tus oportunidades de ataque.</li>
-          <li><b>De todo el partido:</b> duran los tres dados y los usas en la jugada que quieras.</li>
+          <li><b>De todo el partido:</b> duran el partido completo y los usas en la oportunidad de ataque que elijas.</li>
         </ul>
-        <p class="eg">Del tipo: subir el nivel de una línea, repetir un dado, o forzar por dónde ataca el rival.</p>
       </div>
     </div>
   </div>
@@ -515,7 +566,7 @@ footer p{margin:0;opacity:.82}
       <div class="box"><img src="img/ic-draft.jpg" loading="lazy" alt=""><h3>Draft</h3><p>Los dados deciden qué jugadores se van. Elige primero el último de la liga y cierra el campeón.</p></div>
       <div class="box"><img src="img/ic-ingresos.jpg" loading="lazy" alt=""><h3>Ingresos</h3><p>5.000 por cada gol. Más incentivo por posición: 40.000 al cuarto y 10.000 al campeón.</p></div>
       <div class="box"><img src="img/ic-mercado.jpg" loading="lazy" alt=""><h3>Compra y venta</h3><p>Vendes al banco a mitad de precio, se rematan 7 jugadores nuevos y se invierte en juveniles.</p></div>
-      <div class="box"><img src="img/ic-supercopa.jpg" loading="lazy" alt=""><h3>Supercopa</h3><p>Al final de cada año. Todos participan, a 5 goles, y penales si hay empate.</p></div>
+      <div class="box"><img src="img/ic-supercopa.jpg" loading="lazy" alt=""><h3>Supercopa</h3><p>Al final de cada año. Todos participan, con 5 lanzamientos por partido y penales si hay empate.</p></div>
     </div>
   </div>
 </section>
@@ -523,27 +574,32 @@ footer p{margin:0;opacity:.82}
 <!-- ================= COMPRAR ================= -->
 <section class="buy" id="comprar">
   <div class="wrap reveal">
-    <div class="sec-head"><span class="sec-num">06</span><h2>Consíguelo</h2><span class="tag">Envíos a todo Chile</span></div>
+    <div class="sec-head"><span class="sec-num">06</span><h2>Recibe un aviso</h2><span class="tag">Sitio oficial</span></div>
     <div class="two">
       <div>
-        <span class="official">★ Venta oficial directa</span>
-        <div class="price">$39.990<small>Consulta stock y despacho</small></div>
-        <p style="max-width:40ch;margin-top:0">Súper Liga se vende directamente conmigo. No hay distribuidores ni revendedores: si lo ves en otro lado, no es stock oficial y probablemente sea una caja usada.</p>
+        <span class="official">Reimpresión en evaluación</span>
+        <p class="lead">Estamos evaluando volver a imprimir Súper Liga.</p>
+        <p style="max-width:44ch">El precio, el stock y las opciones de despacho todavía están por confirmar. Escríbenos por WhatsApp para pedir un aviso cuando haya disponibilidad confirmada.</p>
         <div class="cta" style="margin-top:1.4rem">
-          <a class="btn btn--solid" href="https://wa.me/56990985324?text=Hola%2C%20quiero%20comprar%20el%20juego%20S%C3%BAper%20Liga" target="_blank" rel="noopener">Comprar por WhatsApp</a>
-          <a class="btn" href="mailto:fabianmartinezn@gmail.com?subject=Quiero%20comprar%20S%C3%BAper%20Liga">Escribir un correo</a>
+          <a class="btn btn--solid" data-contact="whatsapp" data-origin="principal" href="https://wa.me/56990985324?text=Hola%2C%20quiero%20que%20me%20avisen%20cuando%20se%20confirme%20la%20disponibilidad%20de%20S%C3%BAper%20Liga.%20Vengo%20del%20sitio%20oficial." target="_blank" rel="noopener">Avísame por WhatsApp</a>
         </div>
+        <p class="availability-note">El aviso no tiene costo y no reserva una caja. Aún no hay fecha de venta ni entrega navideña confirmada.</p>
+        <p class="related-link"><a href="regalos-futboleros.html">Súper Liga como regalo para futboleros</a></p>
       </div>
       <div>
-        <h3 style="font-size:clamp(24px,6.4vw,34px);margin-bottom:.7rem">Qué trae la caja</h3>
+        <figure class="product-photo">
+          <img src="img/superliga-juego-mesa-futbol.jpg" width="1576" height="1366" loading="lazy" alt="Caja, tablero, cartas y fichas de la edición original de Súper Liga, juego de mesa de fútbol">
+          <figcaption>Edición original. La reimpresión está en evaluación.</figcaption>
+        </figure>
+        <h3 style="font-size:clamp(24px,6.4vw,34px);margin-bottom:.7rem">Con qué se juega</h3>
         <ul class="incl">
-          <li>110 cartas de jugador, de nivel 1 a 7, con los capitanes</li>
-          <li>Cartas de juveniles con proyección a tres temporadas</li>
+          <li>Cartas de jugadores y capitanes de nivel 1 a 7</li>
+          <li>Cartas de juveniles con su proyección</li>
           <li>Mazos de destinos y de entrenamientos</li>
           <li>Tablero, dados y billetes de dólares liga</li>
-          <li>Instructivo completo</li>
+          <li>Reglamento para preparar el plantel y jugar el campeonato</li>
         </ul>
-        <p style="margin-top:1.4rem;font-size:15.5px;opacity:.8">2 a 6 jugadores · Desde 10 años · Una temporada dura cerca de una hora.</p>
+        <p class="availability-note">Descripción de la edición original. Los componentes de una futura edición se confirmarán antes de la venta.</p>
       </div>
     </div>
   </div>
@@ -615,7 +671,7 @@ footer p{margin:0;opacity:.82}
           </table>
           <p>Si hay empate en la suma de niveles, se pierde la oportunidad de gol.</p>
           <h4>Formato</h4>
-          <p>Los partidos de liga se definen al mejor de 3 dados en el orden <strong>Visita · Local · Visita</strong> y se juegan a tres goles. Ganar da 3 puntos; empatar, 1. Los partidos de Supercopa se definen al mejor de 5 dados: Visita · Local · Visita · Local · Visita.</p>
+          <p>Los partidos de liga tienen 3 lanzamientos, en el orden <strong>Visita · Local · Visita</strong>. Gana quien anota más goles: obtiene 3 puntos; si empatan, cada equipo obtiene 1. Los partidos de Supercopa tienen 5 lanzamientos: Visita · Local · Visita · Local · Visita.</p>
           <h4>Casos especiales</h4>
           <ul>
             <li>Si tienes menos de 11 jugadores por expulsión, el expulsado queda con la tarjeta dada vuelta. Si el dado lo indica, tu equipo recibe gol en contra aunque la línea sea más fuerte.</li>
@@ -661,7 +717,7 @@ footer p{margin:0;opacity:.82}
           </ul>
           <h4>Venta y compra</h4>
           <ul>
-            <li><strong>Venta al banco:</strong> mitad de precio, 10.000 por nivel. Los juveniles siempre a 25.000.</li>
+            <li><strong>Venta al banco:</strong> la mitad del precio de mercado. Los juveniles se venden al banco por 25.000 dólares liga.</li>
             <li><strong>Mercado:</strong> salen 7 jugadores a remate, valor inicial 10.000 por nivel.</li>
             <li><strong>Juveniles:</strong> 50.000 la primera temporada, 60.000 la segunda y tercera, 70.000 la cuarta.</li>
           </ul>
@@ -674,12 +730,12 @@ footer p{margin:0;opacity:.82}
           <p>Al final de cada año, después de las vacaciones de verano. Todos los equipos participan.</p>
           <ul>
             <li>Se lanzan los dados para armar las parejas: los mayores se enfrentan entre sí y los menores hacen lo mismo. Quien sacó el número mayor en cada par es local.</li>
-            <li>Los partidos son a 5 goles: el local lanza dos dados y la visita tres. Parte la visita.</li>
+            <li>Cada partido tiene 5 lanzamientos: el local lanza dos veces y la visita tres. Parte la visita.</li>
           </ul>
           <h4>Penales</h4>
           <p>Cada equipo escoge un jugador. La visita lanza el dado y suma el número con el nivel de su jugador; el local lanza y suma con el nivel de su arquero. Si el pateador supera al arquero, es gol; si iguala o queda por debajo, es atajada. Luego ejecuta el local, hasta que uno convierta y el otro falle.</p>
           <h4>Definiciones</h4>
-          <p>Los ganadores definen el campeón y los perdedores el tercer y cuarto lugar, ambos a 5 goles. Se lanza el dado de nuevo para ver quién es local. Conviene jugar el partido por el tercer lugar: los goles se canjean por dinero. Al final se entregan los premios al primer y segundo lugar.</p>
+          <p>Los ganadores definen el campeón y los perdedores el tercer y cuarto lugar, en partidos de 5 lanzamientos. Se lanza el dado de nuevo para ver quién es local. Conviene jugar el partido por el tercer lugar: los goles se canjean por dinero. Al final se entregan los premios al primer y segundo lugar.</p>
         </div>
       </details>
 
@@ -706,34 +762,73 @@ footer p{margin:0;opacity:.82}
   </div>
 </section>
 
+<!-- ================= PREGUNTAS ================= -->
+<section id="preguntas" style="padding-top:0">
+  <div class="wrap reveal">
+    <div class="sec-head"><span class="sec-num">08</span><h2>Preguntas frecuentes</h2></div>
+    <div class="rules">
+      <details>
+        <summary>¿Está disponible para comprar?</summary>
+        <div class="rc"><p>La reimpresión está en evaluación. El precio, el stock y el despacho están por confirmar. Puedes <a href="#comprar">pedir un aviso por WhatsApp</a>; no tiene costo ni reserva una caja.</p></div>
+      </details>
+      <details>
+        <summary>¿Lo puedo regalar en Navidad de 2026?</summary>
+        <div class="rc"><p>Aún no hay venta ni entrega navideña confirmada. Si buscas un <a href="regalos-futboleros.html">regalo para un futbolero</a>, puedes conocer el juego y pedir un aviso. Antes de comprar habrá que confirmar disponibilidad y entrega para tu destino.</p></div>
+      </details>
+      <details>
+        <summary>¿Qué haces durante el juego?</summary>
+        <div class="rc"><p>Diriges un equipo: fichas jugadores en remates, inviertes en juveniles, eliges la formación y disputas partidos con dados. Durante cuatro temporadas buscas ganar campeonatos y reunir la mayor hinchada.</p></div>
+      </details>
+      <details>
+        <summary>¿Dónde encuentro las reglas?</summary>
+        <div class="rc"><p>El <a href="#reglamento">reglamento está en esta página</a> y también puedes <a href="reglamento-superliga.pdf">abrir el instructivo original en PDF</a>. Es gratuito y no requiere registro.</p></div>
+      </details>
+      <details>
+        <summary>¿Las fotos corresponden a la futura edición?</summary>
+        <div class="rc"><p>Las fotos, cartas y reglas muestran la edición original. Los componentes y condiciones de una futura reimpresión se confirmarán antes de venderla.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap cols">
-    <div><div class="d">Súper Liga</div><p>Donde tú eres el DT.<br>Juego de mesa de fútbol, hecho en Chile.</p></div>
-    <div><div class="d">Comprar</div><p><a href="https://wa.me/56990985324">WhatsApp +56 9 9098 5324</a><br><a href="mailto:fabianmartinezn@gmail.com">fabianmartinezn@gmail.com</a><br>Venta oficial directa, sin intermediarios.</p></div>
+    <div><div class="d">Súper Liga</div><p>Donde tú eres el DT.<br>Juego de mesa de fútbol, creado en Chile.<br><a href="regalos-futboleros.html">Regalos para futboleros</a></p></div>
+    <div><div class="d">Contacto oficial</div><p><a data-contact="whatsapp" data-origin="footer" href="https://wa.me/56990985324?text=Hola%2C%20quiero%20que%20me%20avisen%20cuando%20se%20confirme%20la%20disponibilidad%20de%20S%C3%BAper%20Liga.%20Vengo%20del%20sitio%20oficial." target="_blank" rel="noopener">WhatsApp +56 9 9098 5324</a><br><a href="mailto:fabianmartinezn@gmail.com">fabianmartinezn@gmail.com</a><br>Reimpresión en evaluación.</p></div>
     <div><div class="d">Créditos</div><p>Desarrollado por OGR Ltda.<br>Ilustraciones y gráficas: Sebastián Alfaro.<br>Diseño de caja: Pedro Chavarri.</p></div>
   </div>
 </footer>
 
 <div class="buybar" id="buybar">
-  <div class="px">$39.990<small>Venta oficial</small></div>
-  <a href="https://wa.me/56990985324?text=Hola%2C%20quiero%20comprar%20el%20juego%20S%C3%BAper%20Liga" target="_blank" rel="noopener">Comprar</a>
+  <div class="px">Súper Liga<small>Recibe un aviso</small></div>
+  <a data-contact="whatsapp" data-origin="barra" href="https://wa.me/56990985324?text=Hola%2C%20quiero%20que%20me%20avisen%20cuando%20se%20confirme%20la%20disponibilidad%20de%20S%C3%BAper%20Liga.%20Vengo%20del%20sitio%20oficial." target="_blank" rel="noopener">Avísame</a>
 </div>
 
 <script>
+(()=>{
+const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* ---- reveal ---- */
-const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.06});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+if('IntersectionObserver' in window&&!reducedMotion){
+  const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.06});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+}
 
 /* ---- sticky buy bar ---- */
 const bar=document.getElementById('buybar'),hero=document.querySelector('.hero'),buySec=document.getElementById('comprar');
-new IntersectionObserver(e=>{bar.classList.toggle('show',!e[0].isIntersecting)},{threshold:.15}).observe(hero);
-new IntersectionObserver(e=>{if(e[0].isIntersecting)bar.classList.remove('show')},{threshold:.25}).observe(buySec);
+if('IntersectionObserver' in window){
+  let heroVisible=true,buyVisible=false;
+  const barObserver=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.target===hero)heroVisible=e.isIntersecting;if(e.target===buySec)buyVisible=e.isIntersecting});
+    bar.classList.toggle('show',!heroVisible&&!buyVisible);
+  },{threshold:0});
+  barObserver.observe(hero);barObserver.observe(buySec);
+}
 
 /* ---- story ---- */
-const track=document.getElementById('track'),slides=[...track.children],bars=document.getElementById('bars'),count=document.getElementById('count');
+const track=document.getElementById('track'),slides=[...track.querySelectorAll(':scope > .slide')],bars=document.getElementById('bars'),count=document.getElementById('count');
 slides.forEach(()=>bars.insertAdjacentHTML('beforeend','<i><b></b></i>'));
 const segs=[...bars.children];
-let cur=0,timer=null,auto=true;
+let cur=0,timer=null,auto=!reducedMotion;
 const DUR=6200;
 
 function paint(i){
@@ -747,7 +842,7 @@ function paint(i){
 }
 function go(i,smooth=true){
   i=Math.max(0,Math.min(slides.length-1,i));
-  track.scrollTo({left:track.clientWidth*i,behavior:smooth?'smooth':'auto'});
+  track.scrollTo({left:track.clientWidth*i,behavior:smooth&&!reducedMotion?'smooth':'auto'});
 }
 function schedule(){clearTimeout(timer);if(!auto)return;
   timer=setTimeout(()=>{cur<slides.length-1?go(cur+1):(auto=false,paint(cur));},DUR);}
@@ -757,7 +852,7 @@ function stopAuto(){auto=false;clearTimeout(timer);segs.forEach(s=>s.classList.r
 
 let t;
 track.addEventListener('scroll',()=>{clearTimeout(t);t=setTimeout(()=>{
-  const i=Math.round(track.scrollLeft/track.clientWidth);
+  const i=Math.max(0,Math.min(slides.length-1,Math.round(track.scrollLeft/track.clientWidth)));
   if(i!==cur){cur=i;auto?paint(cur):stopAuto();schedule();}
 },90)},{passive:true});
 
@@ -771,8 +866,12 @@ track.addEventListener('keydown',e=>{
 ['touchstart','pointerdown','wheel'].forEach(ev=>track.addEventListener(ev,stopAuto,{passive:true,once:true}));
 
 /* start when the story enters the screen */
-new IntersectionObserver((e,ob)=>{if(e[0].isIntersecting){paint(0);schedule();ob.disconnect()}},{threshold:.5}).observe(document.getElementById('st'));
-if(matchMedia('(prefers-reduced-motion: reduce)').matches){auto=false;stopAuto()}
+paint(0);
+if('IntersectionObserver' in window){
+  new IntersectionObserver((e,ob)=>{if(e[0].isIntersecting){paint(cur);schedule();ob.disconnect()}},{threshold:.5}).observe(document.getElementById('st'));
+}
+if(reducedMotion)stopAuto();
+})();
 </script>
 </body>
 </html>

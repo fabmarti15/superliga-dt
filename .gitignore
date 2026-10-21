@@ -6,3 +6,13 @@ CONTEXTO.md
 
 # Basura del puente de Cowork, bórrala a mano
 _to_delete/
+
+revision-web/
+
+revision-imprenta/
+
+archivo/
+
+reintentar.sh
+.tmp.drive*
+node_modules/
