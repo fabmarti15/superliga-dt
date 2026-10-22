@@ -16,3 +16,6 @@ archivo/
 reintentar.sh
 .tmp.drive*
 node_modules/
+
+# Investigación privada; pendiente aprobación.
+revision-jugabilidad/
